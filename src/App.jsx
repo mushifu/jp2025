@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Clock from "./components/Clock";
-import SunMoon, { getBackgroundAndPosition } from "./components/SunMoon";
+import getBackgroundImage from "./components/getBackgroundImage";
 
 export default function App() {
   const [localTime, setLocalTime] = useState("");
@@ -52,20 +52,27 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const { bgColor } = getBackgroundAndPosition(hourDecimal);
+  const bgImage = getBackgroundImage(hourDecimal);
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-start text-white font-mono px-4 pt-12 transition-colors duration-1000"
-      style={{ background: bgColor }}
+      className="min-h-screen flex flex-col items-center justify-start text-white font-mono px-4 pt-12 transition-colors duration-1000 relative"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <SunMoon hourDecimal={hourDecimal} />
-      <h1 className="text-4xl font-bold mb-8 text-center drop-shadow-lg">
-        Hora actual
-      </h1>
-      <div className="bg-white bg-opacity-20 rounded-2xl p-6 shadow-lg w-full max-w-md backdrop-blur-md">
-        <Clock label="🕐 En Barcelona" time={bcnTime} />
-        <Clock label={`🗺️ En ${cityName}`} time={localTime} />
+      {/* Optional: overlay para contraste de texto */}
+      <div className="absolute inset-0 bg-black bg-opacity-40 pointer-events-none z-0" />
+
+      <div className="relative z-10 text-center">
+        <h1 className="text-4xl font-bold mb-8 drop-shadow-lg">Hora actual</h1>
+
+        <div className="bg-white bg-opacity-20 rounded-2xl p-6 shadow-lg w-full max-w-md backdrop-blur-md">
+          <Clock label="🕐 En Barcelona" time={bcnTime} />
+          <Clock label={`🗺️ En ${cityName}`} time={localTime} />
+        </div>
       </div>
     </div>
   );
