@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Clock from "./components/Clock";
 import getBackgroundImage from "./components/getBackgroundImage";
+import ClockDisplay from "./components/ClockDisplay";
 
 export default function App() {
   const [localTime, setLocalTime] = useState("");
   const [bcnTime, setBcnTime] = useState("");
   const [cityName, setCityName] = useState("Tu zona");
   const [hourDecimal, setHourDecimal] = useState(0);
+  const [dateString, setDateString] = useState("");
+  const [isLocalShown, setIsLocalShown] = useState(true);
 
   useEffect(() => {
     const updateTimes = () => {
       const now = new Date();
-
       const hourDec = now.getHours() + now.getMinutes() / 60;
       setHourDecimal(hourDec);
 
@@ -29,6 +30,10 @@ export default function App() {
         second: "2-digit",
       });
       setLocalTime(localTimeStr);
+
+      const day = now.getDate().toString().padStart(2, "0");
+      const month = now.toLocaleString("es-ES", { month: "long" });
+      setDateString(`${day} ${month.charAt(0).toUpperCase()}${month.slice(1)}`);
     };
 
     if (navigator.geolocation) {
@@ -48,32 +53,29 @@ export default function App() {
 
     updateTimes();
     const interval = setInterval(updateTimes, 60 * 1000);
-
     return () => clearInterval(interval);
   }, []);
 
   const bgImage = getBackgroundImage(hourDecimal);
+  const displayedCity = isLocalShown ? cityName : "Barcelona";
+  const displayedTime = isLocalShown ? localTime : bcnTime;
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-start text-white font-mono px-4 pt-12 transition-colors duration-1000 relative"
+      className="min-h-screen flex items-center justify-center text-white font-mono transition-colors duration-1000 relative"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      {/* Optional: overlay para contraste de texto */}
       <div className="absolute inset-0 bg-black bg-opacity-40 pointer-events-none z-0" />
-
-      <div className="relative z-10 text-center">
-        <h1 className="text-4xl font-bold mb-8 drop-shadow-lg">Hora actual</h1>
-
-        <div className="bg-white bg-opacity-20 rounded-2xl p-6 shadow-lg w-full max-w-md backdrop-blur-md">
-          <Clock label="🕐 En Barcelona" time={bcnTime} />
-          <Clock label={`🗺️ En ${cityName}`} time={localTime} />
-        </div>
-      </div>
+      <ClockDisplay
+        city={displayedCity}
+        date={dateString}
+        time={displayedTime}
+        onToggle={() => setIsLocalShown((prev) => !prev)}
+      />
     </div>
   );
 }

@@ -1,3 +1,91 @@
+@font-face {
+  font-family: 'LondrinaOutline';
+  src: url('./assets/fonts/LondrinaOutline-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LondrinaSolid';
+  src: url('./assets/fonts/LondrinaSolid-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LondrinaSolid';
+  src: url('./assets/fonts/LondrinaSolid-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LondrinaSolid';
+  src: url('./assets/fonts/LondrinaSolid-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LondrinaSolid';
+  src: url('./assets/fonts/LondrinaSolid-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Clases utilitarias para Tailwind */
+.font-londrina-thin {
+  font-family: 'LondrinaSolid', sans-serif;
+  font-weight: 100;
+}
+
+.font-londrina-light {
+  font-family: 'LondrinaSolid', sans-serif;
+  font-weight: 300;
+}
+
+.font-londrina {
+  font-family: 'LondrinaSolid', sans-serif;
+  font-weight: 400;
+}
+
+.font-londrina-black {
+  font-family: 'LondrinaSolid', sans-serif;
+  font-weight: 900;
+}
+
+.font-londrina-outline {
+  font-family: 'LondrinaOutline', sans-serif;
+  font-weight: 400;
+}
+.rotate-270 {
+    transform: rotate(270deg);
+    padding-bottom: 50px;
+}
+
+.clockDisplayContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: normal;
+    align-items: normal;
+    align-content: normal;
+}
+
+.clockDisplayTop {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 300px;
+    div {
+        height: 100%;
+        align-content: flex-end;
+    }
+}
+.clockDisplayBottom {
+    width: 100%;
+}
+
 html, body, #root {
   @apply h-full w-full m-0 p-0;
 }
