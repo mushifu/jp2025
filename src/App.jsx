@@ -20,14 +20,14 @@ export default function App() {
         timeZone: "Europe/Madrid",
         hour: "2-digit",
         minute: "2-digit",
-        second: "2-digit",
+        //second: "2-digit",
       });
       setBcnTime(barcelonaTime);
 
       const localTimeStr = now.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
-        second: "2-digit",
+        //second: "2-digit",
       });
       setLocalTime(localTimeStr);
 
@@ -40,9 +40,13 @@ export default function App() {
       navigator.geolocation.getCurrentPosition(async (position) => {
         try {
           const { latitude, longitude } = position.coords;
-          const response = await fetch(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=es`
-          );
+          //const response = await fetch(
+            //`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=es`
+          //);
+            const response = await fetch(
+                    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=40.9373361&longitude=140.2939277&localityLanguage=es`
+                  );
+
           const data = await response.json();
           setCityName(data.city || data.locality || "Tu zona");
         } catch {

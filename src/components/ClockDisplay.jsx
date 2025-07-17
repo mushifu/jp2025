@@ -7,17 +7,17 @@ export default function ClockDisplay({ city, date, time, onToggle }) {
               <div className="whitespace-nowrap tracking-tight focus:outline-none">
                   <button
                     onClick={onToggle}
-                    className="text-sm font-londrina-black rotate-270"
+                    className="font-londrina-black clockHome_city"
                   >
                     {city}
                   </button>
               </div>
               <div className="whitespace-nowrap tracking-tight">
-                <p className="text-sm rotate-270 font-londrina-outline">{date}</p>
+                <p className="clockHome_date font-londrina-outline">{date}</p>
               </div>
             </div>
-            <div className="text-2xl font-semibold text-left mt-2 transition-opacity duration-500 clockDisplayBottom">
-                <p className="text-2xl font-semibold font-londrina-black">{time}</p>
+            <div className="transition-opacity duration-500 clockDisplayBottom">
+                <p className="clockHome_hour font-londrina-black">{time}</p>
               </div>
       </div>
   );
