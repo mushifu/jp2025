@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import getBackgroundImage from "./components/getBackgroundImage";
 import ClockDisplay from "./components/ClockDisplay";
+import CurrencyConverter from "./components/CurrencyConverter";
 
 export default function App() {
   const [localTime, setLocalTime] = useState("");
@@ -40,12 +41,9 @@ export default function App() {
       navigator.geolocation.getCurrentPosition(async (position) => {
         try {
           const { latitude, longitude } = position.coords;
-          //const response = await fetch(
-            //`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=es`
-          //);
-            const response = await fetch(
-                    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=40.9373361&longitude=140.2939277&localityLanguage=es`
-                  );
+          const response = await fetch(
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=es`
+          );
 
           const data = await response.json();
           setCityName(data.city || data.locality || "Tu zona");
@@ -73,7 +71,7 @@ export default function App() {
         backgroundPosition: "center",
       }}
     >
-      <div className="absolute inset-0 bg-black bg-opacity-40 pointer-events-none z-0" />
+      <CurrencyConverter />
       <ClockDisplay
         city={displayedCity}
         date={dateString}
