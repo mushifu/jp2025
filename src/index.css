@@ -100,10 +100,10 @@
     display: flex;
     flex-direction: row;
     height: 300px;
-    div {
-        height: 100%;
-        align-content: flex-end;
-    }
+}
+.clockDisplayTop div {
+    height: 100%;
+    align-content: flex-end;
 }
 .clockDisplayBottom {
     width: 100%;

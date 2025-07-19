@@ -1,83 +1,30 @@
-import React, { useEffect, useState } from "react";
-import getBackgroundImage from "./components/getBackgroundImage";
-import ClockDisplay from "./components/ClockDisplay";
-import CurrencyConverter from "./components/CurrencyConverter";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
+import Home from "./pages/Home";
+import Map from "./pages/Map";
+import { MapIcon } from "lucide-react";
 
-export default function App() {
-  const [localTime, setLocalTime] = useState("");
-  const [bcnTime, setBcnTime] = useState("");
-  const [cityName, setCityName] = useState("Tu zona");
-  const [hourDecimal, setHourDecimal] = useState(0);
-  const [dateString, setDateString] = useState("");
-  const [isLocalShown, setIsLocalShown] = useState(true);
+function NavButton() {
+  const location = useLocation();
 
-  useEffect(() => {
-    const updateTimes = () => {
-      const now = new Date();
-      const hourDec = now.getHours() + now.getMinutes() / 60;
-      setHourDecimal(hourDec);
-
-      const barcelonaTime = now.toLocaleTimeString("es-ES", {
-        timeZone: "Europe/Madrid",
-        hour: "2-digit",
-        minute: "2-digit",
-        //second: "2-digit",
-      });
-      setBcnTime(barcelonaTime);
-
-      const localTimeStr = now.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-        //second: "2-digit",
-      });
-      setLocalTime(localTimeStr);
-
-      const day = now.getDate().toString().padStart(2, "0");
-      const month = now.toLocaleString("es-ES", { month: "long" });
-      setDateString(`${day} ${month.charAt(0).toUpperCase()}${month.slice(1)}`);
-    };
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        try {
-          const { latitude, longitude } = position.coords;
-          const response = await fetch(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=es`
-          );
-
-          const data = await response.json();
-          setCityName(data.city || data.locality || "Tu zona");
-        } catch {
-          setCityName("Tu zona");
-        }
-      });
-    }
-
-    updateTimes();
-    const interval = setInterval(updateTimes, 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const bgImage = getBackgroundImage(hourDecimal);
-  const displayedCity = isLocalShown ? cityName : "Barcelona";
-  const displayedTime = isLocalShown ? localTime : bcnTime;
+  if (location.pathname === "/map") return null;
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center text-white font-mono transition-colors duration-1000 relative"
-      style={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <CurrencyConverter />
-      <ClockDisplay
-        city={displayedCity}
-        date={dateString}
-        time={displayedTime}
-        onToggle={() => setIsLocalShown((prev) => !prev)}
-      />
-    </div>
+    <Link to="/map" className="absolute bottom-4 right-4 bg-white text-black p-2 rounded-full shadow-lg">
+      <MapIcon className="w-6 h-6" />
+    </Link>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <div className="relative">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/map" element={<Map />} />
+        </Routes>
+        <NavButton />
+      </div>
+    </Router>
   );
 }
