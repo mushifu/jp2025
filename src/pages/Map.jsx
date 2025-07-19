@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import { MarkerClustererF } from "@react-google-maps/api";
 
 const containerStyle = {
@@ -12,7 +12,6 @@ const center = {
   lng: 139.6503
 };
 
-//  Mapeo de tipos a iconos y tamaños
 const markerStyles = {
   restaurant: {
     url: "/icons/restaurant.png",
@@ -50,6 +49,7 @@ const markerStyles = {
 
 const Map = () => {
   const [markers, setMarkers] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
   const loadMarkers = useCallback(async () => {
     try {
@@ -84,17 +84,38 @@ const Map = () => {
               <Marker
                 key={idx}
                 position={{ lat: marker.lat, lng: marker.lng }}
-                title={marker.title || ""}
                 clusterer={clusterer}
                 icon={{
                   url: style.url,
                   scaledSize: new window.google.maps.Size(...style.size)
                 }}
+                onClick={() => setSelectedMarker(marker)}
               />
             );
           })
         }
       </MarkerClustererF>
+
+      {selectedMarker && (
+        <InfoWindow
+          position={{ lat: selectedMarker.lat, lng: selectedMarker.lng }}
+          onCloseClick={() => setSelectedMarker(null)}
+        >
+          <div style={{ maxWidth: "300px" }}>
+            {selectedMarker.image && (
+              <img
+                src={selectedMarker.image}
+                alt={selectedMarker.title}
+                style={{ width: "100%", marginBottom: "8px" }}
+              />
+            )}
+            <h3><strong>{selectedMarker.title}</strong></h3>
+            <p>{selectedMarker.description}</p>
+            <br/>
+            <a href="">Ver más</a>
+          </div>
+        </InfoWindow>
+      )}
     </GoogleMap>
   );
 };

@@ -2,6 +2,7 @@
   "id": "tokio_skytree",
   "title": "Tokyo Skytree",
   "description": "Ta guaaaapo",
+  "image": "/images/tokyo-skytree.jpg",
   "lat": 35.7100627,
   "lng": 139.8081255,
   "type": "monumento"
