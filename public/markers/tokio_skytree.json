@@ -3,5 +3,6 @@
   "title": "Tokyo Skytree",
   "description": "Ta guaaaapo",
   "lat": 35.7100627,
-  "lng": 139.8081255
+  "lng": 139.8081255,
+  "type": "monumento"
 }
