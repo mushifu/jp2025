@@ -30,3 +30,4 @@ npx tailwindcss init -p
 #Como funciona generacion markers
 Al crear un archivo .json en /public/markers y hacer build, se ejecuta el script que genera el index.json.
 
+POLLA NEGRA
