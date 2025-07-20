@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import getBackgroundImage from "../components/getBackgroundImage";
 import ClockDisplay from "../components/ClockDisplay";
 import CurrencyConverter from "../components/CurrencyConverter";
+import { haversineDistance, loadAllMarkers } from "../utils/geoUtils";
+
 
 export default function App() {
   const [localTime, setLocalTime] = useState("");
@@ -10,6 +12,9 @@ export default function App() {
   const [hourDecimal, setHourDecimal] = useState(0);
   const [dateString, setDateString] = useState("");
   const [isLocalShown, setIsLocalShown] = useState(true);
+  const [userLocation, setUserLocation] = useState(null);
+  const [nearbyMarkers, setNearbyMarkers] = useState([]);
+
 
   useEffect(() => {
     const updateTimes = () => {
@@ -21,14 +26,12 @@ export default function App() {
         timeZone: "Europe/Madrid",
         hour: "2-digit",
         minute: "2-digit",
-        //second: "2-digit",
       });
       setBcnTime(barcelonaTime);
 
       const localTimeStr = now.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
-        //second: "2-digit",
       });
       setLocalTime(localTimeStr);
 
@@ -37,26 +40,45 @@ export default function App() {
       setDateString(`${day} ${month.charAt(0).toUpperCase()}${month.slice(1)}`);
     };
 
-    if (navigator.geolocation) {
+    const getLocationData = async () => {
+      if (!navigator.geolocation) return;
+
       navigator.geolocation.getCurrentPosition(async (position) => {
         try {
           const { latitude, longitude } = position.coords;
+
+          // Establece la localización del usuario
+          setUserLocation({ lat: latitude, lng: longitude });
+
+          // Obtiene nombre de la ciudad
           const response = await fetch(
             `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=es`
           );
-
           const data = await response.json();
           setCityName(data.city || data.locality || "Tu zona");
-        } catch {
+
+          // Carga los markers y filtra los cercanos
+          const allMarkers = await loadAllMarkers();
+          const nearby = allMarkers.filter((marker) => {
+            const dist = haversineDistance(latitude, longitude, marker.lat, marker.lng);
+            return dist <= 1; // 1 km
+          });
+      console.log("JHOLLAAAA");
+      console.log("nearby", nearby);
+          setNearbyMarkers(nearby);
+        } catch (error) {
+          console.error("Error obteniendo ubicación o markers:", error);
           setCityName("Tu zona");
         }
       });
-    }
+    };
 
     updateTimes();
+    getLocationData();
     const interval = setInterval(updateTimes, 60 * 1000);
     return () => clearInterval(interval);
   }, []);
+
 
   const bgImage = getBackgroundImage(hourDecimal);
   const displayedCity = isLocalShown ? cityName : "Barcelona";
@@ -78,6 +100,18 @@ export default function App() {
         time={displayedTime}
         onToggle={() => setIsLocalShown((prev) => !prev)}
       />
+      {nearbyMarkers.length > 0 && (
+        <div className="absolute top-10 right-10 bg-black bg-opacity-50 p-4 rounded">
+          <h3 className="text-white text-lg mb-2">Puntos cercanos:</h3>
+          <ul>
+            {nearbyMarkers.map((m) => (
+              <li key={m.id}>
+                <strong>{m.title}</strong>: {m.description}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
