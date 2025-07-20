@@ -3,6 +3,7 @@ import getBackgroundImage from "../components/getBackgroundImage";
 import ClockDisplay from "../components/ClockDisplay";
 import CurrencyConverter from "../components/CurrencyConverter";
 import { haversineDistance, loadAllMarkers } from "../utils/geoUtils";
+import NearbyCarousel from "../components/NearbyCarousel";
 
 
 export default function App() {
@@ -59,12 +60,14 @@ export default function App() {
 
           // Carga los markers y filtra los cercanos
           const allMarkers = await loadAllMarkers();
-          const nearby = allMarkers.filter((marker) => {
-            const dist = haversineDistance(latitude, longitude, marker.lat, marker.lng);
-            return dist <= 1; // 1 km
-          });
-      console.log("JHOLLAAAA");
-      console.log("nearby", nearby);
+          const nearby = allMarkers
+            .map((marker) => {
+              const dist = haversineDistance(latitude, longitude, marker.lat, marker.lng);
+              return { ...marker, distance: dist };
+            })
+            .filter((marker) => marker.distance <= 1); // 1 km
+
+
           setNearbyMarkers(nearby);
         } catch (error) {
           console.error("Error obteniendo ubicación o markers:", error);
@@ -100,18 +103,9 @@ export default function App() {
         time={displayedTime}
         onToggle={() => setIsLocalShown((prev) => !prev)}
       />
-      {nearbyMarkers.length > 0 && (
-        <div className="absolute top-10 right-10 bg-black bg-opacity-50 p-4 rounded">
-          <h3 className="text-white text-lg mb-2">Puntos cercanos:</h3>
-          <ul>
-            {nearbyMarkers.map((m) => (
-              <li key={m.id}>
-                <strong>{m.title}</strong>: {m.description}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+     {nearbyMarkers.length > 0 && (
+         <NearbyCarousel markers={nearbyMarkers} />
+     )}
     </div>
   );
 }

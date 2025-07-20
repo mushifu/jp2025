@@ -34,7 +34,6 @@ useEffect(() => {
   const convert = (val) => {
     if (!rate) return;
     const value = parseFloat(val);
-    console.log("value "+value+", rate: "+rate);
     if (isNaN(value)) {
       setConverted("");
       return;
