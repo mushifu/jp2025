@@ -105,16 +105,17 @@ const Map = () => {
             {selectedMarker.image && (
               <img
                 src={selectedMarker.image}
-                alt={selectedMarker.title}
+                alt={String(selectedMarker.title)}
                 style={{ width: "100%", marginBottom: "8px" }}
               />
             )}
-            <h3><strong>{selectedMarker.title}</strong></h3>
-            <p>{selectedMarker.description}</p>
-            <br/>
+            <h3><strong>{String(selectedMarker.title)}</strong></h3>
+            <p>{String(selectedMarker.description)}</p>
+            <br />
             <a href="">Ver más</a>
           </div>
         </InfoWindow>
+
       )}
     </GoogleMap>
   );
