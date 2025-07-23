@@ -1,0 +1,9 @@
+{
+  "id": "kioto_kinkaku-ji",
+  "title": "Kinkaku-ji",
+  "description": "Pabellón dorado. 9:00 - 17:00. 500 yenes",
+  "image": "/images/kinkaku-ji.jpg",
+  "lat": 35.03937,
+  "lng": 135.7292431,
+  "type": "templos"
+}

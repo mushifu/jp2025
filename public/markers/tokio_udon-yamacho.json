@@ -1,0 +1,9 @@
+{
+  "id": "tokio_udon-yamacho",
+  "title": "Udon Yamacho",
+  "description": "Udon en shibuya. Al mediodia es restaurante, por la noche es izakaya",
+  "image": "/images/udon-yamacho.jpg",
+  "lat": 35.6482915,
+  "lng": 139.7111154,
+  "type": "comida"
+}

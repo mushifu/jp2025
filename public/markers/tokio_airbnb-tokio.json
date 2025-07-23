@@ -1,0 +1,9 @@
+{
+  "id": "tokio_airbnb-tokio",
+  "title": "Airbnb tokio",
+  "description": "",
+  "image": "/images/airbnb-tokio.jpg",
+  "lat": 35.7341111,
+  "lng": 139.8497222,
+  "type": "alojamiento"
+}

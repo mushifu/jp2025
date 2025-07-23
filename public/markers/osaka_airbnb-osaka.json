@@ -1,0 +1,9 @@
+{
+  "id": "osaka_airbnb-osaka",
+  "title": "Airbnb Osaka",
+  "description": "",
+  "image": "/images/airbnb-osaka.jpg",
+  "lat": 34.6614722,
+  "lng": 135.5101389,
+  "type": "alojamiento"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "tokio_benitsuru",
+  "title": "Benitsuru",
+  "description": "Pancakes. Pancakes de gordos",
+  "image": "/images/benitsuru.jpg",
+  "lat": 35.7119914,
+  "lng": 139.7918882,
+  "type": "comida"
+}

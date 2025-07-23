@@ -1,0 +1,9 @@
+{
+  "id": "nagoya_airbnb-nagoya",
+  "title": "Airbnb Nagoya",
+  "description": "",
+  "image": "/images/airbnb-nagoya.jpg",
+  "lat": 35.1767222,
+  "lng": 136.87075,
+  "type": "alojamiento"
+}

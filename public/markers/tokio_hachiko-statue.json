@@ -1,0 +1,9 @@
+{
+  "id": "tokio_hachiko-statue",
+  "title": "Hachiko Statue",
+  "description": "Estatua de hachiko. En shibuya",
+  "image": "/images/hachiko-statue.jpg",
+  "lat": 35.6590579,
+  "lng": 139.7006293,
+  "type": "visitas"
+}

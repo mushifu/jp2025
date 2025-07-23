@@ -13,26 +13,30 @@ const center = {
 };
 
 const markerStyles = {
-  restaurant: {
+  comida: {
     url: "/icons/restaurant.png",
     size: [32, 32]
   },
-  hotel: {
+  alojamiento: {
     url: "/icons/hotel.png",
     size: [32, 32]
   },
-  monumento: {
+  visitas: {
     url: "/icons/monumento.png",
     size: [32, 32]
   },
-  templo: {
+  templos: {
     url: "/icons/templos.png",
     size: [32, 32]
   },
-  fotos: {
+  spots: {
     url: "/icons/fotos.png",
     size: [32, 32]
   },
+  rutas: {
+      url: "/icons/rutas.png",
+      size: [32, 32]
+    },
   compras: {
     url: "/icons/compras.png",
     size: [32, 32]

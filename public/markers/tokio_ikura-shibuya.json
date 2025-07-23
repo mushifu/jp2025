@@ -1,0 +1,9 @@
+{
+  "id": "tokio_ikura-shibuya",
+  "title": "Ikura Shibuya",
+  "description": "Omu rice y hambug steak. Al mediodia es restaurante, por la noche es izakaya",
+  "image": "/images/ikura-shibuya.jpg",
+  "lat": 35.6569375,
+  "lng": 139.6956165,
+  "type": "comida"
+}
