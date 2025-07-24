@@ -52,8 +52,10 @@ El objetivo de la aplicación es tener a mano todo lo que se pueda necesitar dur
 
 - Reloj/Calendario dual Barcelona - GeoLocalización
 - Conversor JPY/EUR con actualización automática
-- Mapa con ***PoI*** personalizados agrupados por clústeres
-- Mapa con estilo minimalista y pocas labels de poca relevancia
+- Mapa con ***PoI*** personalizados
+  - Agrupación por clústeres
+  - Estilo minimalista y pocas labels de poca relevancia
+  - Filtrado por tipos
 - Marcadores con tooltips personalizados
 - Funcionalidad de PoI cercanos basados en Geolocalización
 
@@ -81,6 +83,9 @@ Iniciar tailwindcss:
 Instalar componente de API de Google Maps:
 
     npm install @react-google-maps/api
+Instalar componente de animaciones:
+
+    npm install framer-motion
 
 ## Levantar la aplicación en local
 Para levantar un servidor de development con la aplicación en local, ejecutar:
