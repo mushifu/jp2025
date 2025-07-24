@@ -13,6 +13,8 @@ const Map = () => {
   const [selectedMarker, setSelectedMarker] = useState(null);   //Objeto para controlar el marcador seleccioando
   const [activeTypes, setActiveTypes] = useState(new Set());    //Objeto para filtrar los marcadores
   const [allTypes, setAllTypes] = useState([]);     //Objeto para almcenar los filtros por tipo
+  const [searchText, setSearchText] = useState("");     //Objeto para la barra de búsqueda
+
 
   // Función para cargar los marcadores desde ficheros JSON
   const loadMarkers = useCallback(async () => {
@@ -77,16 +79,22 @@ const Map = () => {
        mapTypeControl: false
      }}>
         <MapMarkerFilter
-            types={allTypes}
-            activeTypes={activeTypes}
-            toggleType={toggleType}
-            selectAll={selectAll}
-            clearAll={clearAll}
-          />
+          types={allTypes}
+          activeTypes={activeTypes}
+          toggleType={toggleType}
+          selectAll={selectAll}
+          clearAll={clearAll}
+          searchText={searchText}
+          setSearchText={setSearchText}
+        />
       <MarkerClustererF key={[...activeTypes].sort().join(",")}>
         {(clusterer) =>
           markers
-            .filter(marker => activeTypes.has(marker.type)) // FILTRA por tipo activo
+            .filter((marker) => {
+                const matchesType = activeTypes.has(marker.type);
+                const matchesText = marker.title.toLowerCase().includes(searchText.toLowerCase()) || marker.description.toLowerCase().includes(searchText.toLowerCase());
+                return matchesText && matchesType;
+            }) // FILTRA por tipo activo y texto de búsqueda
             .map((marker, idx) => {
               const style = markerStyles[marker.type] || markerStyles.default;
 
