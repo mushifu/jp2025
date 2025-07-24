@@ -56,6 +56,7 @@ El objetivo de la aplicación es tener a mano todo lo que se pueda necesitar dur
   - Agrupación por clústeres
   - Estilo minimalista y pocas labels de poca relevancia
   - Filtrado por tipos
+  - Filtrado por búsqueda
 - Marcadores con tooltips personalizados
 - Funcionalidad de PoI cercanos basados en Geolocalización
 

@@ -3,6 +3,7 @@ import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import { MarkerClustererF } from "@react-google-maps/api";
 import { cleanMapStyle, markerStyles } from "../utils/constants"
 import MapMarkerFilter from "../components/MapMarkerFilter";
+import { haversineDistance, loadAllMarkers } from "../utils/geoUtils";
 
 
 const containerStyle = {width: "100vw", height: "100vh"};   //Contendor del mapa
@@ -17,28 +18,12 @@ const Map = () => {
 
 
   // Función para cargar los marcadores desde ficheros JSON
-  const loadMarkers = useCallback(async () => {
-    try {
-      const res = await fetch("/markers/index.json");
-      const files = await res.json();
-
-      const data = await Promise.all(
-        files.map(async (filename) => {
-          const response = await fetch(`/markers/${filename}`);
-          return await response.json();
-        })
-      );
-
-      setMarkers(data);
-    } catch (err) {
-      console.error("Error cargando marcadores:", err);
-    }
+  useEffect(() => {
+    loadAllMarkers()
+      .then(setMarkers)
+      .catch(err => console.error("Error cargando marcadores:", err));
   }, []);
 
-  //Carga los marcadores por primera vez
-  useEffect(() => {
-    loadMarkers();
-  }, [loadMarkers]);
 
   //Calcula los filtros y activa todos por defecto
   useEffect(() => {
