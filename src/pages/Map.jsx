@@ -191,14 +191,14 @@ const Map = () => {
               origin,
               destination,
               travelMode: window.google.maps.TravelMode[travelMode],
+              provideRouteAlternatives: true
             }}
             callback={(result, status) => {
               setLoadingRoute(false);
               if (status === "OK") {
                 setDirections(result);
                 const leg = result.routes[0].legs[0];
-                const steps = leg.steps.map(step => step.instructions);
-                setSteps(steps);
+                setSteps(leg.steps);
                 setRouteInfo({
                   duration: leg.duration.text,
                   distance: leg.distance.text

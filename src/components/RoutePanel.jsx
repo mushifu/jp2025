@@ -1,7 +1,8 @@
 import React from "react";
+import { Bus, Train } from "lucide-react"; // Importa los iconos que necesites
 
 const RoutePanel = ({
-  steps,
+  steps,               // ahora es leg.steps, tal cual
   routeInfo,
   expandedPanel,
   setExpandedPanel,
@@ -9,6 +10,57 @@ const RoutePanel = ({
   travelMode,
   setTravelMode
 }) => {
+
+  const formatStep = (step, index) => {
+    if (step.travel_mode === "TRANSIT" && step.transit) {
+      const t = step.transit;
+      const vehicle = t.line.vehicle.type;
+      const lineName = t.line.short_name || t.line.name;
+
+      // Color desde la API Google
+      console.log("linea: "+t.line.color);
+      console.log("linea texto: "+t.line.textColor);
+      const lineColor = t.line.color ? `${t.line.color}` : null;
+      const lineTextColor = t.line.textColor ? `${t.line.textColor}` : "#000";
+
+      const { icon } = (() => {
+        if (vehicle === "BUS") return { icon: <Bus size={16} /> };
+        if (vehicle === "TRAIN") return { icon: <Train size={16} /> };
+        if (vehicle === "SUBWAY") return { icon: <Train size={16} /> };
+        return { icon: <Bus size={16} /> };
+      })();
+
+      const label = vehicle === "SUBWAY" ? `Metro ${lineName}` : `${vehicle.charAt(0).toUpperCase() + vehicle.slice(1).toLowerCase()} ${lineName}`;
+
+      return (
+        <li key={index} className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span
+              className="px-2 py-1 rounded-full text-sm font-semibold flex items-center gap-1"
+              style={{
+                backgroundColor: lineColor || "#d1d5db", // fallback gris claro
+                color: lineTextColor,
+              }}
+            >
+              {icon} {label}
+            </span>
+          </div>
+          <div className="text-sm text-gray-700 ml-6">
+            Desde <strong>{t.departure_stop.name}</strong> hasta <strong>{t.arrival_stop.name}</strong> ({t.num_stops} paradas)
+          </div>
+        </li>
+      );
+    } else {
+      return (
+        <li key={index} className="text-gray-800 text-sm">
+          {step.instructions && (
+            <span dangerouslySetInnerHTML={{ __html: step.instructions }} />
+          )}
+        </li>
+      );
+    }
+  };
+
 
   return (
     steps.length > 0 && (
@@ -80,7 +132,6 @@ const RoutePanel = ({
 
         {/* CONTENIDO DE RUTA */}
         <div className="p-4 pt-2">
-
           <h2 className="text-xl font-bold mb-4">Cómo llegar</h2>
 
           <div className="mb-4 text-gray-700">
@@ -93,6 +144,7 @@ const RoutePanel = ({
           </div>
 
           <hr className="mb-4" />
+
           {/* Selección de modo de transporte */}
           <div className="mb-4 flex gap-2">
             <button
@@ -117,14 +169,8 @@ const RoutePanel = ({
             </button>
           </div>
 
-
           <ol className="space-y-4 list-decimal list-inside text-gray-800">
-            {steps.map((instruction, index) => (
-              <li
-                key={index}
-                dangerouslySetInnerHTML={{ __html: instruction }}
-              />
-            ))}
+            {steps.map((step, index) => formatStep(step, index))}
           </ol>
 
           <hr className="mt-6" />
