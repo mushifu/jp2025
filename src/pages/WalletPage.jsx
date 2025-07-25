@@ -1,4 +1,5 @@
 import React from 'react';
+import "../WalletPage.css";
 
 const WalletPage = () => {
   const reservas = [
@@ -29,35 +30,20 @@ const WalletPage = () => {
   ];
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>🎒 Mi viaje a Japón</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-        {reservas.map((item) => (
+    <div className="wallet-container">
+      <h1 className="wallet-title">🎒 Mi viaje a Japón</h1>
+      <div className="wallet-cards">
+        {reservas.map((item, index) => (
           <div
             key={item.id}
-            style={{
-              border: '1px solid #ccc',
-              borderRadius: '10px',
-              padding: '1rem',
-              width: '300px',
-              background: '#f9f9f9',
-            }}
+            className={`wallet-card card-${index % 3}`}
           >
             <h2>{item.title}</h2>
-            <p style={{ whiteSpace: 'pre-line' }}>{item.description}</p>
+            <p>{item.description}</p>
             <a
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'inline-block',
-                marginTop: '1rem',
-                background: '#007bff',
-                color: 'white',
-                padding: '0.5rem 1rem',
-                borderRadius: '5px',
-                textDecoration: 'none',
-              }}
             >
               {item.link.includes('maps') ? '📍 Ver en Google Maps' : '🔗 Abrir Enlace'}
             </a>

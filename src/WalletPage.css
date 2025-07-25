@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Contenidor general */
+.wallet-container {
+  @apply min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 px-6 py-10;
+}
+
+/* Títol */
+.wallet-title {
+  @apply text-white text-3xl font-bold mb-8 text-center;
+}
+
+/* Contenidor de targetes */
+.wallet-cards {
+  @apply flex flex-col items-center gap-6;
+}
+
+/* Estil base de les targetes */
+.wallet-card {
+  @apply relative w-[90%] max-w-xs bg-white bg-opacity-80 backdrop-blur-md rounded-2xl shadow-xl p-4 transition-transform duration-300 ease-in-out opacity-0 animate-slideIn;
+}
+
+.wallet-card h2 {
+  @apply text-lg font-semibold text-gray-800 mb-2;
+}
+
+.wallet-card p {
+  @apply text-sm text-gray-700 whitespace-pre-line;
+}
+
+.wallet-card a {
+  @apply inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded transition;
+}
+
+/* Targetes amb rotacions lleugeres per l'efecte "iPhone-style stack" */
+.card-0 {
+  transform: rotate(-1.5deg) translateY(0px);
+  z-index: 30;
+}
+
+.card-1 {
+  transform: rotate(1deg) translateY(10px);
+  z-index: 20;
+}
+
+.card-2 {
+  transform: rotate(-0.5deg) translateY(20px);
+  z-index: 10;
+}
+
+/* Animació: Slide In */
+@keyframes slideIn {
+  0% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.6s ease-out forwards;
+}
