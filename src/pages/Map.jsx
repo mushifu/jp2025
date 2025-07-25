@@ -216,7 +216,24 @@ const Map = () => {
                 // Quitar notificación después de 4 segundos
                 setTimeout(() => setNotification(""), 4000);
               } else {
-                console.error("Error obteniendo direcciones:", status);
+                if(status === "NOT_FOUND") {
+                    setNotification("No hay ruta en transporte público. Mostrando ruta a pie.");
+                } else if (status === "ZERO_RESULTS") {
+                    setNotification("No se encontraron rutas.");
+                } else if (status === "MAX_WAYPOINTS_EXCEEDED") {
+                    setNotification("Demasiados puntos de referencia en la petición.");
+                } else if (status === "MAX_ROUTE_LENGTH_EXCEEDED") {
+                     setNotification("La ruta indicada es demasiado larga y no se pudo procesar.");
+                } else if (status === "INVALID_REQUEST") {
+                    setNotification("La solicitud enviada no es válida.");
+                } else if (status === "OVER_QUERY_LIMIT") {
+                    setNotification("La aplicación ha enviado demasiadas solicitudes dentro del período permitido");
+                } else if (status === "REQUEST_DENIED") {
+                    setNotification("La aplicación no puede utilizar el servicio Directions de Google");
+                } else {
+                    setNotification("Ha habido un error en la solicitus de direcciones");
+                }
+
               }
             }}
 
