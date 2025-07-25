@@ -6,36 +6,35 @@ const TapBar = () => {
   const currentPath = location.pathname;
 
   return (
-    <nav
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md rounded-full shadow-lg flex gap-6 px-4 py-1 z-50"
-      style={{ maxWidth: "200px" }}
-    >
-      <Link to="/" className="flex flex-col items-center justify-center">
-        <Home
-          size={42}
-          className={`transition-colors duration-300 ease-in-out ${
-            currentPath === "/" ? "text-blue-600" : "text-gray-400"
-          }`}
-        />
-      </Link>
+    <nav className="fixed bottom-0 left-0 w-full bg-white/20 backdrop-blur-sm border-t border-white/30 shadow-lg z-50 rounded-t-xl">
+      <div className="flex justify-around items-center h-16 max-w-md mx-auto">
+        <Link to="/" className="flex flex-col items-center justify-center">
+          <Home
+            size={28}
+            className={`transition-colors duration-300 ease-in-out ${
+              currentPath === "/" ? "text-blue-600" : "text-[#191919]"
+            }`}
+          />
+        </Link>
 
-      <Link to="/map" className="flex flex-col items-center justify-center">
-        <Map
-          size={42}
-          className={`transition-colors duration-300 ease-in-out ${
-            currentPath === "/map" ? "text-blue-600" : "text-gray-400"
-          }`}
-        />
-      </Link>
+        <Link to="/map" className="flex flex-col items-center justify-center">
+          <Map
+            size={28}
+            className={`transition-colors duration-300 ease-in-out ${
+              currentPath === "/map" ? "text-blue-600" : "text-[#191919]"
+            }`}
+          />
+        </Link>
 
-      <Link to="/wallet" className="flex flex-col items-center justify-center">
-        <Wallet
-          size={42}
-          className={`transition-colors duration-300 ease-in-out ${
-            currentPath === "/wallet" ? "text-blue-600" : "text-gray-400"
-          }`}
-        />
-      </Link>
+        <Link to="/wallet" className="flex flex-col items-center justify-center">
+          <Wallet
+            size={28}
+            className={`transition-colors duration-300 ease-in-out ${
+              currentPath === "/wallet" ? "text-blue-600" : "text-[#191919]"
+            }`}
+          />
+        </Link>
+      </div>
     </nav>
   );
 };
