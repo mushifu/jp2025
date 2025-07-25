@@ -24,6 +24,10 @@ const Map = () => {
   const [routeInfo, setRouteInfo] = useState({ duration: "", distance: "" });
   const [loadingRoute, setLoadingRoute] = useState(false);
   const [expandedPanel, setExpandedPanel] = useState(false);
+  const [travelMode, setTravelMode] = useState("WALKING"); // valores: "DRIVING", "WALKING", "TRANSIT"
+  const [notification, setNotification] = useState("");
+
+
 
   const mapRef = useRef(null);
   const onLoadMap = useCallback(map => { mapRef.current = map; }, []);
@@ -81,11 +85,12 @@ const Map = () => {
       setDirections(null);
       setSteps([]);
       setRouteInfo({ duration: "", distance: "" });
-      setLoadingRoute(true);  // Activa spinner
+      setLoadingRoute(true);
     } else {
       alert("No se pudo obtener tu ubicación.");
     }
   };
+
 
   return (
     <div className="relative">
@@ -185,10 +190,10 @@ const Map = () => {
             options={{
               origin,
               destination,
-              travelMode: window.google.maps.TravelMode.DRIVING,
+              travelMode: window.google.maps.TravelMode[travelMode],
             }}
             callback={(result, status) => {
-              setLoadingRoute(false);  // Desactiva spinner
+              setLoadingRoute(false);
               if (status === "OK") {
                 setDirections(result);
                 const leg = result.routes[0].legs[0];
@@ -198,12 +203,26 @@ const Map = () => {
                   duration: leg.duration.text,
                   distance: leg.distance.text
                 });
+              } else if (status === "ZERO_RESULTS" && travelMode === "TRANSIT") {
+                // fallback automático a WALKING
+                setTravelMode("WALKING");
+                setNotification("No hay ruta en transporte público. Mostrando ruta a pie.");
+                // reiniciar ruta
+                setDirections(null);
+                setSteps([]);
+                setRouteInfo({ duration: "", distance: "" });
+                setLoadingRoute(true);
+
+                // Quitar notificación después de 4 segundos
+                setTimeout(() => setNotification(""), 4000);
               } else {
                 console.error("Error obteniendo direcciones:", status);
               }
             }}
+
           />
         )}
+
 
         {/* DirectionsRenderer */}
         {directions && (
@@ -238,8 +257,26 @@ const Map = () => {
           setRouteInfo({ duration: "", distance: "" });
           setExpandedPanel(false);
         }}
+        travelMode={travelMode}
+        setTravelMode={(mode) => {
+          setTravelMode(mode);
+          if (destination) {
+            // recalcular la ruta al cambiar modo
+            setDirections(null);
+            setSteps([]);
+            setRouteInfo({ duration: "", distance: "" });
+            setLoadingRoute(true);
+          }
+        }}
       />
+      {notification && (
+        <div className="fixed top-4 right-4 backdrop-blur-md bg-white/30 text-gray-900 px-4 py-2 rounded-xl shadow-lg z-50 animate-fade border border-white/40">
+          {notification}
+        </div>
+      )}
     </div>
+
+
   );
 };
 

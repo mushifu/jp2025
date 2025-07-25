@@ -6,7 +6,10 @@ const RoutePanel = ({
   expandedPanel,
   setExpandedPanel,
   onClose,
+  travelMode,
+  setTravelMode
 }) => {
+
   return (
     steps.length > 0 && (
       <div
@@ -77,6 +80,7 @@ const RoutePanel = ({
 
         {/* CONTENIDO DE RUTA */}
         <div className="p-4 pt-2">
+
           <h2 className="text-xl font-bold mb-4">Cómo llegar</h2>
 
           <div className="mb-4 text-gray-700">
@@ -89,6 +93,30 @@ const RoutePanel = ({
           </div>
 
           <hr className="mb-4" />
+          {/* Selección de modo de transporte */}
+          <div className="mb-4 flex gap-2">
+            <button
+              onClick={() => setTravelMode("WALKING")}
+              className={`px-3 py-1 rounded ${
+                travelMode === "WALKING"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-800"
+              }`}
+            >
+              A pie
+            </button>
+            <button
+              onClick={() => setTravelMode("TRANSIT")}
+              className={`px-3 py-1 rounded ${
+                travelMode === "TRANSIT"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-800"
+              }`}
+            >
+              Transporte público
+            </button>
+          </div>
+
 
           <ol className="space-y-4 list-decimal list-inside text-gray-800">
             {steps.map((instruction, index) => (
