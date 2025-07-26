@@ -1,5 +1,6 @@
 import React from 'react';
 import "../WalletPage.css";
+import BackgroundWrapper from "../components/BackgroundWrapper";
 
 const WalletPage = () => {
   const reservas = [
@@ -30,6 +31,7 @@ const WalletPage = () => {
   ];
 
   return (
+      <BackgroundWrapper>
     <div className="wallet-container">
       <h1 className="wallet-title">🎒 Mi viaje a Japón</h1>
       <div className="wallet-cards">
@@ -51,6 +53,7 @@ const WalletPage = () => {
         ))}
       </div>
     </div>
+    </BackgroundWrapper>
   );
 };
 

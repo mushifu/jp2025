@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import getBackgroundImage from "../components/getBackgroundImage";
 import ClockDisplay from "../components/ClockDisplay";
 import CurrencyConverter from "../components/CurrencyConverter";
 import { haversineDistance, loadAllMarkers } from "../utils/geoUtils";
 import NearbyCarousel from "../components/NearbyCarousel";
+import BackgroundWrapper from "../components/BackgroundWrapper";
+
 
 
 export default function App() {
@@ -83,19 +84,12 @@ export default function App() {
   }, []);
 
 
-  const bgImage = getBackgroundImage(hourDecimal);
   const displayedCity = isLocalShown ? cityName : "Barcelona";
   const displayedTime = isLocalShown ? localTime : bcnTime;
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center text-white font-mono transition-colors duration-1000 relative"
-      style={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+      <BackgroundWrapper>
+    <div>
       <CurrencyConverter />
       <ClockDisplay
         city={displayedCity}
@@ -107,5 +101,6 @@ export default function App() {
          <NearbyCarousel markers={nearbyMarkers} />
      )}
     </div>
+    </BackgroundWrapper>
   );
 }
