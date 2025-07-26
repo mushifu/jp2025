@@ -4,12 +4,12 @@
 
 /* Contenidor general */
 .wallet-container {
-  @apply min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 px-6 py-10;
+  @apply min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 px-6 py-10 font-mono;
 }
 
 /* Títol */
 .wallet-title {
-  @apply text-white text-3xl font-bold mb-8 text-center;
+  @apply text-white text-3xl font-bold mb-8 text-center font-mono;
 }
 
 /* Contenidor de targetes */
@@ -17,34 +17,35 @@
   @apply flex flex-col items-center gap-6;
 }
 
-/* Estil base de les targetes */
+/* Targetes translúcides estil iOS */
 .wallet-card {
-  @apply relative w-[90%] max-w-xs bg-white bg-opacity-80 backdrop-blur-md rounded-2xl shadow-xl p-4 transition-transform duration-300 ease-in-out opacity-0 animate-slideIn;
+  @apply relative w-[90%] max-w-xs bg-white/10 backdrop-blur-sm border border-white/20
+         rounded-2xl shadow-lg p-4 transition-transform duration-300 ease-in-out
+         opacity-0 animate-slideIn text-white font-mono;
 }
 
 .wallet-card h2 {
-  @apply text-lg font-semibold text-gray-800 mb-2;
+  @apply text-base font-semibold text-white mb-2;
 }
 
 .wallet-card p {
-  @apply text-sm text-gray-700 whitespace-pre-line;
+  @apply text-sm text-white/90 whitespace-pre-line;
 }
 
 .wallet-card a {
-  @apply inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded transition;
+  @apply inline-block mt-4 bg-white/20 hover:bg-white/30 text-white text-sm px-4 py-2
+         rounded transition;
 }
 
-/* Targetes amb rotacions lleugeres per l'efecte "iPhone-style stack" */
+/* Rotacions per efecte de pila */
 .card-0 {
   transform: rotate(-1.5deg) translateY(0px);
   z-index: 30;
 }
-
 .card-1 {
   transform: rotate(1deg) translateY(10px);
   z-index: 20;
 }
-
 .card-2 {
   transform: rotate(-0.5deg) translateY(20px);
   z-index: 10;
