@@ -60,6 +60,8 @@ El objetivo de la aplicación es tener a mano todo lo que se pueda necesitar dur
 - Marcadores con tooltips personalizados
 - Funcionalidad de PoI cercanos basados en Geolocalización
 - Funcionalidad wallet para guardar documentación importante
+  - Página securizada con login
+- Login con oAuth de Google
 
 ## Requisitos para ejecutar la aplicación
 Para ejecutar la aplicación es necesario instalar Node.js desde la página oficial.
@@ -89,6 +91,10 @@ Instalar componente de animaciones:
 
     npm install framer-motion
 
+Instalar componentes de autenticación:
+
+    npm install axios
+    npm install @react-oauth/google
 ## Levantar la aplicación en local
 Para levantar un servidor de development con la aplicación en local, ejecutar:
 
@@ -98,6 +104,8 @@ Si la aplicación lanza un error de vite que tiene que ver con VITE_GOOGLE_MAPS_
 
 - Crear un fichero ".env" en la raíz del proyecto
 - Añadir VITE_GOOGLE_MAPS_API_KEY= < clave-de-api >
+- Añadir VITE_GOOGLE_CLIENT_ID = < clave-de-cliente-oauth >
+- Añadir VITE_ALLOWED_USERS = lista de mails autorizados
 - Volver a ejecutar el proyecto
 
 ## Funcionalidad de Temas

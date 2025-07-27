@@ -1,9 +1,13 @@
 import React from 'react';
 import "../WalletPage.css";
 import BackgroundWrapper from "../components/BackgroundWrapper";
+import { useAuth } from '../components/AuthContext';
+import TopBar from '../components/TopBar';
+import { Star } from 'lucide-react';
 
-const WalletPage = () => {
-  const reservas = [
+import background from "../assets/police-lights.jpg";
+import unauthorized from "../assets/acceso_no_autorizado.png";
+const reservas = [
     {
       id: 1,
       title: '✈️ Vuelo de Barcelona a Tokio (Iberia)',
@@ -29,32 +33,62 @@ const WalletPage = () => {
       link: 'https://www.japanrailpass.net/es/',
     },
   ];
+const WalletPage = () => {
+    const { user, login, logout } = useAuth();
 
-  return (
-      <BackgroundWrapper>
-    <div className="wallet-container">
-      <h1 className="wallet-title">🎒 Mi viaje a Japón</h1>
-      <div className="wallet-cards">
-        {reservas.map((item, index) => (
-          <div
-            key={item.id}
-            className={`wallet-card card-${index % 3}`}
-          >
-            <h2>{item.title}</h2>
-            <p>{item.description}</p>
-            <a
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
+        if (!user) {
+          return (
+            <div
+              className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
+              style={{ backgroundImage: `url(${background})` }}
             >
-              {item.link.includes('maps') ? '📍 Ver en Google Maps' : '🔗 Abrir Enlace'}
-            </a>
+              <TopBar />
+              <div className="flex flex-col items-center space-y-4 mt-16">
+
+                <img src={unauthorized} alt="Logo 2" className="w-[90%] max-w-md object-contain" />
+                <div className="flex space-x-1 mt-4">
+                          {Array.from({ length: 5 }).map((_, idx) => (
+                            <Star key={idx} size={28} stroke="black" strokeWidth={2.5} fill="white" />
+                          ))}
+                        </div>
+                <p className="text-black text-lg text-center mt-4 px-4">
+                  Acceso privado – Inicia sesión para ver los documentos
+                </p>
+              </div>
+            </div>
+          );
+        }
+
+
+{{
+    return (
+          <BackgroundWrapper>
+
+        <div className="wallet-container">
+          <h1 className="wallet-title">🎒 Mi viaje a Japón</h1>
+          <div className="wallet-cards">
+            {reservas.map((item, index) => (
+              <div
+                key={item.id}
+                className={`wallet-card card-${index % 3}`}
+              >
+                <h2>{item.title}</h2>
+                <p>{item.description}</p>
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.link.includes('maps') ? '📍 Ver en Google Maps' : '🔗 Abrir Enlace'}
+                </a>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
-    </BackgroundWrapper>
-  );
+        </div>
+        </BackgroundWrapper>
+      );
+
+    }}
 };
 
 export default WalletPage;
