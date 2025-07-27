@@ -60,7 +60,7 @@
 }
 .clockHome_city {
     position: absolute;
-    bottom: 165px;
+    bottom: 225px;
     left: -165px;
     font-size: 70px;
     rotate: 270deg;
@@ -70,7 +70,7 @@
 }
 .clockHome_date {
     position: absolute;
-    bottom: 165px;
+    bottom: 225px;
     left: -100px;
     font-size: 50px;
     rotate: 270deg;
@@ -80,7 +80,7 @@
 }
 .clockHome_hour {
     position: absolute;
-    bottom: -25px;
+    bottom: 35px;
     left: -15px;
     font-size: 50px;
     text-align: left;

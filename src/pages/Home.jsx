@@ -89,7 +89,7 @@ export default function App() {
 
   return (
       <BackgroundWrapper>
-    <div className="h-[100dvh] flex flex-col justify-between">
+    <div className="h-[100dvh] overflow-hidden flex flex-col justify-between">
       <CurrencyConverter />
       <ClockDisplay
         city={displayedCity}
