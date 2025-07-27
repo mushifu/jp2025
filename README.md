@@ -116,4 +116,3 @@ Se puede añadir cuantos temas se quieran siguiendo estos pasos:
   - Noche (23h a 5h)
   - Preview (Imagen de preview. Se puede configurar para usar cualquier otra)
 - Modificar /utils/themes.js para añadir las imágenes y el tema.
-- Añadir el identificador del tema a /components/ThemeSelector.jsx en themesAvailable

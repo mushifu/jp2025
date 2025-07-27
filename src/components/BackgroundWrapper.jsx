@@ -30,6 +30,7 @@ export default function BackgroundWrapper({ children, hour = null }) {
   const hourDecimal = hour !== null ? hour : now.getHours() + now.getMinutes() / 60;
   const themeImages = THEMES[theme] || THEMES.bridgeTheme;
   const bgImage = getBackgroundImage(hourDecimal, themeImages);
+  const mobilePositionX = themeImages.mobilePositionX || "center";
 
   return (
     <div
@@ -48,7 +49,7 @@ export default function BackgroundWrapper({ children, hour = null }) {
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "20% center",
+          backgroundPosition: `${mobilePositionX} center`,
         }}
       >
         {/* En móvil se muestra esta capa con el fondo ajustado */}
