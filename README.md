@@ -59,6 +59,7 @@ El objetivo de la aplicación es tener a mano todo lo que se pueda necesitar dur
   - Filtrado por búsqueda
 - Marcadores con tooltips personalizados
 - Funcionalidad de PoI cercanos basados en Geolocalización
+- Funcionalidad wallet para guardar documentación importante
 
 ## Requisitos para ejecutar la aplicación
 Para ejecutar la aplicación es necesario instalar Node.js desde la página oficial.
@@ -99,4 +100,20 @@ Si la aplicación lanza un error de vite que tiene que ver con VITE_GOOGLE_MAPS_
 - Añadir VITE_GOOGLE_MAPS_API_KEY= < clave-de-api >
 - Volver a ejecutar el proyecto
 
+## Funcionalidad de Temas
+La aplicación tiene una funcionalidad de temas visuales para personalizar el estilo de las pantallas. Actualmente, esta personalización tan solo afecta a los fondos dinámicos de pantalla, pudiendo escoger entre varias opciones.
 
+En la página Settings aparecerá la selección de temas disponibles de entre los que se podrá escoger uno. La selección se guarda en LocalStorage para que se aplique automáticamente en las siguientes visitas.
+### Añadir un nuevo tema
+Se puede añadir cuantos temas se quieran siguiendo estos pasos:
+- Añadir las imágenes de fondo a /src/assets/<nombre-tema>. Los temas están preparados para aceptar 7 estados:
+  - Amanecer (5h a 9h)
+  - Mañana (9h a 13h)
+  - Dia (13h a 17h)
+  - Tarde (17h a 20h)
+  - Atardecer (20h a 21h)
+  - Anochecer (21h a 23h)
+  - Noche (23h a 5h)
+  - Preview (Imagen de preview. Se puede configurar para usar cualquier otra)
+- Modificar /utils/themes.js para añadir las imágenes y el tema.
+- Añadir el identificador del tema a /components/ThemeSelector.jsx en themesAvailable

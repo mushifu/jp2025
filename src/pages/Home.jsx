@@ -4,7 +4,7 @@ import CurrencyConverter from "../components/CurrencyConverter";
 import { haversineDistance, loadAllMarkers } from "../utils/geoUtils";
 import NearbyCarousel from "../components/NearbyCarousel";
 import BackgroundWrapper from "../components/BackgroundWrapper";
-
+import ThemeSelector from "../components/ThemeSelector";
 
 
 export default function App() {

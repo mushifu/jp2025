@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react
 import Home from "./pages/Home";
 import Map from "./pages/Map";
 import WalletPage from "./pages/WalletPage";
+import SettingsPage from "./pages/SettingsPage";
 import TapBar from "./components/TapBar";
 import { MapIcon } from "lucide-react";
 
@@ -13,6 +14,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/map" element={<Map />} />
           <Route path="/wallet" element={<WalletPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
         <TapBar />
       </div>

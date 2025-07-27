@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Wallet, Map } from "lucide-react";
+import { Home, Wallet, Map, Settings } from "lucide-react";
 
 const TapBar = () => {
   const location = useLocation();
@@ -34,6 +34,14 @@ const TapBar = () => {
             }`}
           />
         </Link>
+        <Link to="/settings" className="flex flex-col items-center justify-center">
+                  <Settings
+                    size={28}
+                    className={`transition-colors duration-300 ease-in-out ${
+                      currentPath === "/settings" ? "text-blue-600" : "text-[#191919]"
+                    }`}
+                  />
+                </Link>
       </div>
     </nav>
   );

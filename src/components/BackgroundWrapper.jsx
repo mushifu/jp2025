@@ -1,39 +1,35 @@
 import React from "react";
-
-import amanecer from "../assets/bridge-theme/amanecer.png";
-import manana from "../assets/bridge-theme/manana.png";
-import dia from "../assets/bridge-theme/dia.png";
-import tarde from "../assets/bridge-theme/tarde.png";
-import atardecer from "../assets/bridge-theme/atardecer.png";
-import anochecer from "../assets/bridge-theme/anochecer.png";
-import noche from "../assets/bridge-theme/noche.png";
+import { THEMES } from "../utils/themes";
+import { useTheme } from "../components/ThemeContext";
 
 // Función para obtener la imagen según la hora
-function getBackgroundImage(hour) {
+function getBackgroundImage(hour, themeImages) {
   if (hour >= 24) hour -= 24;
   if (hour < 0) hour += 24;
 
   if (hour >= 5 && hour < 9) {
-    return amanecer;
+    return themeImages.amanecer;
   } else if (hour >= 9 && hour < 13) {
-    return manana;
+    return themeImages.manana;
   } else if (hour >= 12 && hour < 17) {
-      return dia;
+      return themeImages.dia;
   } else if (hour >= 17 && hour < 20) {
-        return tarde;
+        return themeImages.tarde;
   } else if (hour >= 20 && hour < 21) {
-        return atardecer;
+        return themeImages.atardecer;
   } else if (hour >= 21 && hour < 23) {
-        return anochecer;
+        return themeImages.anochecer;
   } else {
-    return noche;
+    return themeImages.noche;
   }
 }
 
 export default function BackgroundWrapper({ children, hour = null }) {
+    const { theme } = useTheme();
   const now = new Date();
   const hourDecimal = hour !== null ? hour : now.getHours() + now.getMinutes() / 60;
-  const bgImage = getBackgroundImage(hourDecimal);
+  const themeImages = THEMES[theme] || THEMES.bridgeTheme;
+  const bgImage = getBackgroundImage(hourDecimal, themeImages);
 
   return (
     <div
