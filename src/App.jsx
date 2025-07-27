@@ -6,12 +6,14 @@ import SettingsPage from "./pages/SettingsPage";
 import TapBar from "./components/TapBar";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './components/AuthContext';
+import { ToastProvider } from './components/ToastContext';
 
 
 export default function App() {
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <AuthProvider>
+          <ToastProvider>
         <Router>
           <div className="relative">
             <Routes>
@@ -23,6 +25,7 @@ export default function App() {
             <TapBar />
           </div>
         </Router>
+        </ToastProvider>
       </AuthProvider>
     </GoogleOAuthProvider>
   );

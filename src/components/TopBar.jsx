@@ -3,6 +3,7 @@ import { useAuth } from './AuthContext';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { User } from 'lucide-react';
+import { useToast } from './ToastContext';
 
 const ALLOWED_USERS = import.meta.env.VITE_ALLOWED_USERS.split(',');
 
@@ -10,6 +11,7 @@ export default function TopBar() {
   const { user, login, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef();
+  const { showToast } = useToast();
 
   // Detectar clic fuera del menú
   useEffect(() => {
@@ -38,13 +40,13 @@ export default function TopBar() {
         if (ALLOWED_USERS.includes(email)) {
           login(email, tokenResponse.access_token, name, picture);
         } else {
-          alert('Acceso no autorizado');
+          showToast('Acceso no autorizado', 'error');
         }
       } catch (err) {
-        alert('Error al iniciar sesión');
+        showToast('Error al iniciar sesión', 'error');
       }
     },
-    onError: () => alert('Error al iniciar sesión'),
+    onError: () => showToast('Error al iniciar sesión'),
   });
 
   return (
